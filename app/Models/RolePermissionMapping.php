@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Permissions;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class RolePermissionMapping extends Model
+class RolePermissionMapping extends Pivot
 {
-    use HasFactory;
+
 }

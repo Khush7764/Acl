@@ -14,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AclController::class, 'getAllPermissions']);
+Route::get('all-permissions', [AclController::class, 'getAllPermissions']);
+Route::get('all-permissions/{id}', [AclController::class, 'getUserPermissions']);

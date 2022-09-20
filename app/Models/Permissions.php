@@ -9,8 +9,9 @@ class Permissions extends Model
 {
     use HasFactory;
 
-    public function subMenus()
+    public function roles()
     {
-        return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
+        return $this->belongsToMany('App\Models\Roles', 'role_permission_mappings', 
+        'permission_id', 'roles_id');
     }
 }
