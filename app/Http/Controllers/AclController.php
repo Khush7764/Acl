@@ -24,4 +24,10 @@ class AclController extends Controller
         $rolesPerm = Roles::whereIn('id', $roles)->with('permission')->get()->toArray();
         return response()->json($rolesPerm);
     }
+
+    function getAllRoles()
+    {  
+        $prm = Roles::with('permission')->get()->toArray();
+        return response()->json($prm);
+    }
 }
