@@ -161,38 +161,34 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user_roles = [
-            ["user_id" => 1, "role_id" => [1, 2, 3, 4, 5, 6]],
-            ["user_id" => 2, "role_id" => [2, 4]],
-            ["user_id" => 3, "role_id" => [3, 5]],
-            ["user_id" => 4, "role_id" => [4]],
-            ["user_id" => 5, "role_id" => [5]],
+            ["role_id" => [1, 2, 3, 4, 5]],
+            ["role_id" => [2, 4]],
+            ["role_id" => [3, 5]],
+            ["role_id" => [4]],
+            ["role_id" => [5]],
         ];
 
         $role_permission = [
             1 => [1,2,3,4,5,6,7,8,9,10,11,12],
             2 => [1,2,3,4,6,8],
-            3 => [1,2,3,4,5,6,7,8,9,10,11,12],
+            3 => [1,2,3,4,5,6,7,8,9,12],
             4 => [12],
             5 => [1,2,3,10,11,12],
         ]; 
+        
         $inputArray = [];
-        $inputArray = [];
+        
         foreach($user_roles as $key => $value){
-        	for($i = 0; $i < count($value); $i++){
-            	$arr = [];
-           		for($j = 0; $j < count($value['role_id']); $j++){
-                    $arr['user_id'] = $value['user_id'];
-                	$arr['role_id'] = $value['role_id'][$j];
-                    foreach($role_permission as $role => $perms){
-                    	if($role == $arr['role_id']){
-                        	for($k = 0; $k < count($perms); $k++){
-                            	$arr['permission_id'] = $perms[$k];
-                                array_push($inputArray, $arr);
-                            }
-                        }
+            $arr = [];
+                $arr['role_id'] = $value['role_id'];
+                foreach($arr['role_id'] as $role){
+                    $arr['role_id'] = $role;
+                    $perms = $role_permission[$role];
+                    foreach($perms as $perm){
+                    $arr['permission_id'] = $perm;
+                    array_push($inputArray, $arr);
                     }
                 }
-            }
         }
 
         DB::table('role_permission_mappings')->insert($inputArray);
