@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Permissions extends Model
 {
     use HasFactory;
+    static $id = [];
 
     public function roles()
     {
@@ -18,5 +19,22 @@ class Permissions extends Model
     public function subMenus()
     {
         return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
+    }
+
+    public function subMenus()
+    {
+        return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
+    }
+
+    public function subMenuUser()
+    {
+        return $this->hasMany(self::class, 'parent_menu_id')->with(['subMenuUser' => function($q){
+            $q->whereIn('id', self::$id);
+        }]);
+    }
+
+    public static function setId(array $permissions)
+    {
+        self::$id = $permissions;
     }
 }
