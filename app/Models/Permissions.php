@@ -21,11 +21,6 @@ class Permissions extends Model
         return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
     }
 
-    public function subMenus()
-    {
-        return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
-    }
-
     public function subMenuUser()
     {
         return $this->hasMany(self::class, 'parent_menu_id')->with(['subMenuUser' => function($q){

@@ -34,10 +34,4 @@ class AclController extends Controller
         $prm = Roles::with('permission')->get()->toArray();
         return response()->json($prm);
     }
-
-    function getAllRoles()
-    {  
-        $prm = Roles::with('permission')->get()->toArray();
-        return response()->json($prm);
-    }
 }
