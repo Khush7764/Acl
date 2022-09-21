@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
-                'roles' => ["3", "4"]
+                'roles' => json_encode([1, 2, 3, 4, 5])
             ],
             [
                 'name' => "Priyanka",
@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([2, 4])
             ],
             [
                 'name' => "Bhargav",
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([3, 5])
             ],
             [
                 'name' => "Pankaj",
@@ -44,6 +46,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([4])
             ],
             [
                 'name' => "Shubhangi",
@@ -51,6 +54,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([5])
             ],
         ]);
 
@@ -164,7 +168,7 @@ class DatabaseSeeder extends Seeder
         $role_permission = [
             1 => [1,2,3,4,5,6,7,8,9,10,11,12],
             2 => [1,2,3,4,6,8],
-            3 => [1,2,3,4,5,6,7,8,9,10,11,12],
+            3 => [1,2,3,4,5,6,7,12],
             4 => [12],
             5 => [1,2,3,10,11,12],
         ]; 
