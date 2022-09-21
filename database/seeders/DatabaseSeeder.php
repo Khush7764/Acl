@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([1, 2, 3, 4, 5])
             ],
             [
                 'name' => "Priyanka",
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([2, 4])
             ],
             [
                 'name' => "Bhargav",
@@ -36,6 +38,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([3, 5])
             ],
             [
                 'name' => "Pankaj",
@@ -43,6 +46,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([4])
             ],
             [
                 'name' => "Shubhangi",
@@ -50,6 +54,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
+                'roles' => json_encode([5])
             ],
         ]);
 
@@ -160,38 +165,22 @@ class DatabaseSeeder extends Seeder
             ['name' => "Business Development"]
         ]);
 
-        $user_roles = [
-            ["user_id" => 1, "role_id" => [1, 2, 3, 4, 5, 6]],
-            ["user_id" => 2, "role_id" => [2, 4]],
-            ["user_id" => 3, "role_id" => [3, 5]],
-            ["user_id" => 4, "role_id" => [4]],
-            ["user_id" => 5, "role_id" => [5]],
-        ];
-
         $role_permission = [
             1 => [1,2,3,4,5,6,7,8,9,10,11,12],
             2 => [1,2,3,4,6,8],
-            3 => [1,2,3,4,5,6,7,8,9,10,11,12],
+            3 => [1,2,3,4,5,6,7,12],
             4 => [12],
             5 => [1,2,3,10,11,12],
         ]; 
+
         $inputArray = [];
-        $inputArray = [];
-        foreach($user_roles as $key => $value){
-        	for($i = 0; $i < count($value); $i++){
-            	$arr = [];
-           		for($j = 0; $j < count($value['role_id']); $j++){
-                    $arr['user_id'] = $value['user_id'];
-                	$arr['role_id'] = $value['role_id'][$j];
-                    foreach($role_permission as $role => $perms){
-                    	if($role == $arr['role_id']){
-                        	for($k = 0; $k < count($perms); $k++){
-                            	$arr['permission_id'] = $perms[$k];
-                                array_push($inputArray, $arr);
-                            }
-                        }
-                    }
-                }
+        
+        foreach($role_permission as $roles => $permissions) {
+            foreach($permissions as $perm) {
+                $inputArray[] = [
+                    'role_id' => $roles,
+                    'permission_id' => $perm
+                ];
             }
         }
 
