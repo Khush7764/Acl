@@ -16,11 +16,10 @@ class EnsureRoles
      */
     public function handle(Request $request, Closure $next, $roles = [])
     {
-        dd($roles);
-        if (! $request->user()->hasRole($role)) {
-            // Redirect...
-            return back();
-        }
+        // if (! $request->user()->hasRole($role)) {
+        //     // Redirect...
+        //     return back();
+        // }
         return $next($request);
     }
 }

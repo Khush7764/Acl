@@ -32,4 +32,5 @@ class Permissions extends Model
     {
         self::$id = $permissions;
     }
+
 }

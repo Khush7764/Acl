@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
                 "menu_type" => "tab"
             ],
             [
-                "menu_name" => "3Month",
+                "menu_name" => "Edit",
                 "operation" => "Edit",
                 "uri" => "loanmatrix/freshgrid/3month/edit",
                 "parent_menu_id" => 4,
@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
                 "menu_type" => "tab"
             ],
             [
-                "menu_name" => "62Days",
+                "menu_name" => "Edit",
                 "operation" => "Edit",
                 "uri" => "loanmatrix/freshgrid/62Days/edit",
                 "parent_menu_id" => 6,
@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
                 "menu_type" => "tab"
             ],
             [
-                "menu_name" => "6Month",
+                "menu_name" => "Edit",
                 "operation" => "Edit",
                 "uri" => "loanmatrix/freshgrid/6Month/edit",
                 "parent_menu_id" => 8,
