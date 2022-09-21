@@ -15,7 +15,6 @@ class CreateRolePermissionMappingsTable extends Migration
     {
         Schema::create('role_permission_mappings', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
             $table->integer('role_id');
             $table->integer('permission_id');
             $table->timestamps();
