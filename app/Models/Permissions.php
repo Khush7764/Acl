@@ -13,6 +13,7 @@ class Permissions extends Model
     {
         return $this->belongsToMany('App\Models\Roles', 'role_permission_mappings', 
         'permission_id', 'roles_id');
+
     }
     public function subMenus()
     {
