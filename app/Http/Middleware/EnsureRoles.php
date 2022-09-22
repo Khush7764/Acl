@@ -18,7 +18,6 @@ class EnsureRoles
     public function handle(Request $request, Closure $next)
     {
         $userid = $request->segment(2);
-        dd((new ACLService())->checkUserPermissions($userid));
         if (!(new ACLService())->checkUserPermissions($userid)) {
             abort(401);
         }
