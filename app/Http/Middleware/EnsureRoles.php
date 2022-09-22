@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Services\ACLService;
 
 class EnsureRoles
 {
@@ -14,12 +15,12 @@ class EnsureRoles
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $roles = [])
+    public function handle(Request $request, Closure $next)
     {
-        // if (! $request->user()->hasRole($role)) {
-        //     // Redirect...
-        //     return back();
-        // }
+        $userid = $request->segment(2);
+        if (!(new ACLService())->checkUserPermissions($userid)) {
+            abort(401);
+        }
         return $next($request);
     }
 }

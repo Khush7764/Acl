@@ -45,7 +45,7 @@ class AclController extends Controller
 
     function viewUserRole($id=null)
     {  
-        $prm = Permissions::with('subMenus')->whereNull('parent_menu_id')->get();
+        $prm = Permissions::with('allPermissions')->whereNull('parent_menu_id')->get();
         $passParam = ['permissions' => $prm];
         if(!empty($id)) {
             $userPerm = RolePermissionMapping::where('role_id', $id)->pluck('permission_id')->toArray();
