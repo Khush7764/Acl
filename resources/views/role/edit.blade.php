@@ -56,8 +56,8 @@
                             <li class="list-unstyled">
                         <input type="checkbox" name="permission_id[]" value="{{ $value->id }}" @if (!empty($role_id)) {{(in_array($value->id, $userPer)) ? 'checked' : '' }} @endif
                         > {{ $value->menu_name }}
-                        @if(count($value->subMenus) > 0)
-                            @include('role.submenu',['childs' => $value->subMenus])
+                        @if(count($value->allPermissions) > 0)
+                            @include('role.submenu',['childs' => $value->allPermissions])
                         @endif
                         </li>
                         @endforeach

@@ -14,17 +14,28 @@ class Permissions extends Model
     {
         return $this->belongsToMany('App\Models\Roles', 'role_permission_mappings', 
         'permission_id', 'roles_id');
-
-    }
-    public function subMenus()
-    {
-        return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
     }
 
-    public function subMenuUser()
+    public function allPermissions()
     {
-        return $this->hasMany(self::class, 'parent_menu_id')->with(['subMenuUser' => function($q){
+<<<<<<< Updated upstream
+        return $this->hasMany(self::class, 'parent_menu_id')->with('userSidebar');
+=======
+        return $this->hasMany(self::class, 'parent_menu_id')->with('allPermissions');
+>>>>>>> Stashed changes
+    }
+
+    public function userPermissions()
+    {
+        return $this->hasMany(self::class, 'parent_menu_id')->with(['userPermissions' => function($q){
             $q->whereIn('id', self::$id);
+        }]);
+    }
+
+    public function userSidebar()
+    {
+        return $this->hasMany(self::class, 'parent_menu_id')->with(['userSidebar' => function($q){
+            $q->whereIn('id', self::$id)->where('menu_type', 'sidebar');
         }]);
     }
 

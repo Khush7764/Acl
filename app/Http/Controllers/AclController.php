@@ -13,7 +13,7 @@ class AclController extends Controller
 {
     function getAllPermissions()
     {  
-        $prm = Permissions::with('subMenus')->whereNull('parent_menu_id')->get()->toArray();
+        $prm = Permissions::with('allPermissions')->whereNull('parent_menu_id')->get()->toArray();
         return response()->json($prm);
     }
 
@@ -24,10 +24,15 @@ class AclController extends Controller
 
         $rolesPerm = RolePermissionMapping::whereIn('role_id', $roles)->pluck('permission_id')->toArray();
         Permissions::setId($rolesPerm);
-        $prm = Permissions::with(['subMenuUser' => function($q) use($rolesPerm){
+        $prm = Permissions::with(['userPermissions' => function($q) use($rolesPerm){
             $q->whereIn('id', $rolesPerm);
         }])->whereNull('parent_menu_id')->get()->toArray();
-        return response()->json($prm);
+        
+        $sidebar = Permissions::with(['userSidebar' => function($q) use($rolesPerm){
+            $q->whereIn('id', $rolesPerm)->where('menu_type', 'sidebar');
+        }])->whereNull('parent_menu_id')->get()->toArray();
+
+        return response()->json(['permissions' => $prm, 'sidebar' => $sidebar]);
     }
 
     function getAllRoles($msg = null)
@@ -40,7 +45,7 @@ class AclController extends Controller
 
     function viewUserRole($id=null)
     {  
-        $prm = Permissions::with('subMenus')->whereNull('parent_menu_id')->get();
+        $prm = Permissions::with('allPermissions')->whereNull('parent_menu_id')->get();
         $passParam = ['permissions' => $prm];
         if(!empty($id)) {
             $userPerm = RolePermissionMapping::where('role_id', $id)->pluck('permission_id')->toArray();
