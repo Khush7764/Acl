@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group([
-    'middleware' => ["ensure_roles"]
+    'middleware' => ["auth","ensure_roles"]
 ], function(){
     Route::get('all-permissions/{id}', [AclController::class, 'getUserPermissions']);
     Route::get('all-permissions', [AclController::class, 'getAllPermissions']);
+    Route::get('all-roles', [AclController::class, 'getAllRoles']);
 
     Route::get('freshGrid', [PurpleController::class, 'freshGrid']);
     Route::get('loanmatrix/freshgrid/3month', [PurpleController::class, 'threeMonthList']);
@@ -32,5 +33,9 @@ Route::group([
     Route::get('loanmatrix/freshgrid/addnewtemplate', [PurpleController::class, 'addNewTemplate']);
     Route::get('transactionsList', [TransactionController::class, 'transactionsList']);
 });
-Route::get('all-permissions', [AclController::class, 'getAllPermissions']);
-Route::get('all-roles', [AclController::class, 'getAllRoles']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
