@@ -16,15 +16,22 @@ class Permissions extends Model
         'permission_id', 'roles_id');
     }
 
-    public function subMenus()
+    public function allPermissions()
     {
         return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
     }
 
-    public function subMenuUser()
+    public function userPermissions()
     {
-        return $this->hasMany(self::class, 'parent_menu_id')->with(['subMenuUser' => function($q){
+        return $this->hasMany(self::class, 'parent_menu_id')->with(['userPermissions' => function($q){
             $q->whereIn('id', self::$id);
+        }]);
+    }
+
+    public function userSidebar()
+    {
+        return $this->hasMany(self::class, 'parent_menu_id')->with(['userSidebar' => function($q){
+            $q->whereIn('id', self::$id)->where('menu_type', 'sidebar');
         }]);
     }
 
