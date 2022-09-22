@@ -22,7 +22,7 @@ Route::group([
     Route::get('all-permissions', [AclController::class, 'getAllPermissions']);
     Route::get('all-roles', [AclController::class, 'getAllRoles']);
 
-    Route::get('freshGrid', [PurpleController::class, 'freshGrid']);
+    Route::get('freshGrid', [PurpleController::class, 'freshGrid'])->name('freshGrid');
     Route::get('loanmatrix/freshgrid/3month', [PurpleController::class, 'threeMonthList']);
     Route::get('loanmatrix/freshgrid/3month/edit', [PurpleController::class, 'threeMonthEdit']);
     Route::get('loanmatrix/freshgrid/62Days', [PurpleController::class, 'sixtyTwoDaysList']);
