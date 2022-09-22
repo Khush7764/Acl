@@ -18,7 +18,7 @@ class Permissions extends Model
 
     public function allPermissions()
     {
-        return $this->hasMany(self::class, 'parent_menu_id')->with('subMenus');
+        return $this->hasMany(self::class, 'parent_menu_id')->with('userSidebar');
     }
 
     public function userPermissions()
