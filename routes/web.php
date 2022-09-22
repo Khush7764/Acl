@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AclController;
+use App\Http\Controllers\PurpleController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +30,7 @@ Route::group([
     Route::get('loanmatrix/freshgrid/6Month/edit', [PurpleController::class, 'sixMonthEdit']);
     Route::get('loanmatrix/freshgrid/sendexcelreport', [PurpleController::class, 'sendExcelReport']);
     Route::get('loanmatrix/freshgrid/addnewtemplate', [PurpleController::class, 'addNewTemplate']);
-    Route::get('transactionsList', [PurpleController::class, 'transactionsList']);
+    Route::get('transactionsList', [TransactionController::class, 'transactionsList']);
 });
 Route::get('all-permissions', [AclController::class, 'getAllPermissions']);
 Route::get('all-roles', [AclController::class, 'getAllRoles']);
