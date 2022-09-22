@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group([
-    'middleware' => ["ensure_roles"]
+    // 'middleware' => ["ensure_roles"]
 ], function(){
     Route::get('all-permissions', [AclController::class, 'getAllPermissions']);
     Route::get('all-permissions/{id}', [AclController::class, 'getUserPermissions']);
@@ -24,11 +24,7 @@ Route::group([
     Route::get('role/view/{id?}', [AclController::class, 'viewUserRole'])->name('role.view');
     Route::post('role/create-or-update', [AclController::class, 'createOrUpdateRole'])->name('role.createOrUpdate');
 
-<<<<<<< HEAD
     Route::get('freshGrid', [PurpleController::class, 'freshGrid'])->name('freshGrid');
-=======
-    Route::get('freshGrid', [PurpleController::class, 'freshGrid']);
->>>>>>> f4f49405c6ce46e0097f81dc8833b0c11b16f11d
     Route::get('loanmatrix/freshgrid/3month', [PurpleController::class, 'threeMonthList']);
     Route::get('loanmatrix/freshgrid/3month/edit', [PurpleController::class, 'threeMonthEdit']);
     Route::get('loanmatrix/freshgrid/62Days', [PurpleController::class, 'sixtyTwoDaysList']);
@@ -41,13 +37,5 @@ Route::group([
 });
 
 Route::get('/dashboard', function () {
-<<<<<<< HEAD
     return view('welcome');
 })->middleware(['auth'])->name('dashboard');
-=======
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-require _DIR_.'/auth.php';
-
->>>>>>> f4f49405c6ce46e0097f81dc8833b0c11b16f11d

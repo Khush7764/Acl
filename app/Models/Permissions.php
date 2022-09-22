@@ -18,11 +18,7 @@ class Permissions extends Model
 
     public function allPermissions()
     {
-<<<<<<< Updated upstream
-        return $this->hasMany(self::class, 'parent_menu_id')->with('userSidebar');
-=======
         return $this->hasMany(self::class, 'parent_menu_id')->with('allPermissions');
->>>>>>> Stashed changes
     }
 
     public function userPermissions()
