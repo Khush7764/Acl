@@ -48,6 +48,9 @@ class ACLService
             $q->whereIn('id', $rolesPerm)->where('menu_type', 'sidebar');
         }])->whereNull('parent_menu_id')->get()->toArray();
 
-        return (['permissions' => $prm, 'sidebar' => $sidebar]);
+        $singular = Permissions::with(['userSingular' => function($q) use($rolesPerm){
+            $q->whereIn('id', $rolesPerm)->where('menu_type', 'sidebar');
+        }])->whereNull('parent_menu_id')->get()->toArray();
+        return (['permissions' => $prm, 'sidebar' => $sidebar, 'singular' => $singular]);
     }
 }

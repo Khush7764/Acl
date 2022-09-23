@@ -8,6 +8,7 @@ class TransactionController extends Controller
 {
     public function transactionsList()
     {
-        
+        $pageHeader = "Transactions List";
+        return view('page')->with(['pageheader'=>$pageHeader]);        
     }
 }

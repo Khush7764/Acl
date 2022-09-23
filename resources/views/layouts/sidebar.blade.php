@@ -24,7 +24,7 @@
                with font-awesome or any other icon font library -->
           @foreach ($sidebar['sidebar'] as $menu)
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="{{route($menu['uri']??'dashboard')}}" class="nav-link">
                 <i class="nav-icon fas fa-table"></i>
                 <p>
                   {{$menu['menu_name']}}
@@ -37,7 +37,7 @@
               <ul class="nav nav-treeview">
               @foreach ($menu['user_sidebar'] as $submenu)
                 <li class="nav-item">
-                  <a href="#" class="nav-link"> 
+                  <a href="{{route($submenu['uri']??'dashboard')}}" class="nav-link"> 
                     <i class="far fa-circle nav-icon"></i>
                     <p>{{$submenu['menu_name']}}</p>
                   </a>
@@ -50,14 +50,13 @@
           <li class="nav-item">
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
+                @csrf
+                <x-dropdown-link :href="route('logout')"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </x-dropdown-link>
+            </form>
           </li>
         </ul>
       </nav>
