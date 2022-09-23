@@ -155,6 +155,30 @@ class DatabaseSeeder extends Seeder
                 "dependent_menu_id" => null,
                 "menu_type" => "sidebar"            
             ],
+            [
+                "menu_name" => "Roles",
+                "operation" => null,
+                "uri" => null,
+                "parent_menu_id" => null,
+                "dependent_menu_id" => null,
+                "menu_type" => "sidebar"            
+            ],
+            [
+                "menu_name" => "List",
+                "operation" => "List",
+                "uri" => "transactionsall-roles",
+                "parent_menu_id" => 13,
+                "dependent_menu_id" => 13,
+                "menu_type" => "singular"            
+            ],
+            [
+                "menu_name" => "Transactions",
+                "operation" => "Create0rUpdate",
+                "uri" => "role/create-or-update",
+                "parent_menu_id" => 13,
+                "dependent_menu_id" => 13,
+                "menu_type" => "singular"            
+            ],
         ]);
 
         DB::table('roles')->insert([
