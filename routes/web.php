@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::view('/', 'auth.login');
 Route::group([
-    'middleware' => ["auth","ensure_roles"]
+    'middleware' => ["auth", "ensure_roles"]
 ], function(){
     Route::get('all-permissions', [AclController::class, 'getAllPermissions']);
     Route::get('all-permissions/{id}', [AclController::class, 'getUserPermissions']);

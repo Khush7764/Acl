@@ -19,9 +19,12 @@ class EnsureRoles
      */
     public function handle(Request $request, Closure $next)
     {
+        $requestUri = $request->getRequestUri();
         $userid = Auth::user()->id;
-        if (!(new ACLService())->checkUserPermissions($userid)) {
-            abort(401);
+        if($requestUri != '/dashboard') {
+            if (!(new ACLService())->checkUserPermissions($userid, $requestUri)) {
+                abort(401);
+            }
         }
         $userMenu = (new ACLService())->getUserMenu($userid);
         View::share('sidebar', $userMenu);

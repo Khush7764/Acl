@@ -7,22 +7,6 @@
       <div class="col-sm-4">
         <h1>{{ $pageheader ?? ""}}</h1>
       </div>
-      <div class="col-sm-5">
-        <div class="card-tools">
-        @foreach ($sidebar['singular'] as $menu)
-        @if ($menu['user_singular'])
-        @foreach ($menu['user_singular'] as $singular)
-        @if($singular['menu_type'] == 'singular' && empty($singular['user_singular']))        
-        <div class="input-group input-group-sm" style="width: 150px;">
-            <a href="{{route($singular['uri']??'dashboard')}}" class="btn btn-success">{{$singular['menu_name']??""}}</a>
-        </div>
-        @endif
-        @endforeach
-        @endif
-        @endforeach
-            
-        </div>
-      </div>
       <div class="col-sm-3">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>

@@ -37,7 +37,7 @@
               <ul class="nav nav-treeview">
               @foreach ($menu['user_sidebar'] as $submenu)
                 <li class="nav-item">
-                  <a href="{{route($submenu['uri']??'dashboard')}}" class="nav-link"> 
+                  <a href="{{route($submenu['uri'] ?? 'dashboard')}}" class="nav-link"> 
                     <i class="far fa-circle nav-icon"></i>
                     <p>{{$submenu['menu_name']}}</p>
                   </a>
