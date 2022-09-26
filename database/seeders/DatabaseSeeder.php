@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             [
                 "menu_name" => "Loan Matrix",
                 "operation" => "Listing",
-                "uri" => "loanmatrix/list",
+                "uri" => "loanmatrix",
                 "parent_menu_id" => 1,
                 "dependent_menu_id" => null,
                 "menu_type" => "sidebar"
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
                 "menu_type" => "tab"
             ],
             [
-                "menu_name" => "3Month",
+                "menu_name" => "Edit",
                 "operation" => "Edit",
                 "uri" => "loanmatrix/freshgrid/3month/edit",
                 "parent_menu_id" => 4,
@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
                 "menu_type" => "tab"
             ],
             [
-                "menu_name" => "62Days",
+                "menu_name" => "Edit",
                 "operation" => "Edit",
                 "uri" => "loanmatrix/freshgrid/62Days/edit",
                 "parent_menu_id" => 6,
@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
                 "menu_type" => "tab"
             ],
             [
-                "menu_name" => "6Month",
+                "menu_name" => "Edit",
                 "operation" => "Edit",
                 "uri" => "loanmatrix/freshgrid/6Month/edit",
                 "parent_menu_id" => 8,
@@ -155,6 +155,30 @@ class DatabaseSeeder extends Seeder
                 "dependent_menu_id" => null,
                 "menu_type" => "sidebar"            
             ],
+            [
+                "menu_name" => "Roles",
+                "operation" => null,
+                "uri" => "all-roles",
+                "parent_menu_id" => null,
+                "dependent_menu_id" => null,
+                "menu_type" => "sidebar"            
+            ],
+            [
+                "menu_name" => "All Roles",
+                "operation" => "List",
+                "uri" => "all-roles",
+                "parent_menu_id" => 13,
+                "dependent_menu_id" => 13,
+                "menu_type" => "singular"            
+            ],
+            [
+                "menu_name" => "Create or Update Roles",
+                "operation" => "Create0rUpdate",
+                "uri" => "role/create-or-update",
+                "parent_menu_id" => 13,
+                "dependent_menu_id" => 13,
+                "menu_type" => "singular"            
+            ],
         ]);
 
         DB::table('roles')->insert([
@@ -166,7 +190,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $role_permission = [
-            1 => [1,2,3,4,5,6,7,8,9,10,11,12],
+            1 => [1,2,3,4,5,6,7,8,9,10,11,12, 13, 14, 15],
             2 => [1,2,3,4,6,8],
             3 => [1,2,3,4,5,6,7,12],
             4 => [12],

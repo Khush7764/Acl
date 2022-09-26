@@ -8,6 +8,7 @@ use App\Models\Permissions;
 
 class Roles extends Model
 {
+    protected $guarded = [];
     use HasFactory;
 
     public function permission()

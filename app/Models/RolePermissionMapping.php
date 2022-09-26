@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class RolePermissionMapping extends Model
 {
-
+    protected $guarded = [];
 }

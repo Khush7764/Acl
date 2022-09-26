@@ -7,6 +7,7 @@ use App\Models\Permissions;
 use App\Models\RolePermissionMapping;
 use App\Models\Roles;
 use App\Models\User;
+use Exception;
 
 class AclController extends Controller
 {
@@ -34,9 +35,80 @@ class AclController extends Controller
         return response()->json(['permissions' => $prm, 'sidebar' => $sidebar]);
     }
 
-    function getAllRoles()
+    function getAllRoles($msg = null)
     {  
-        $prm = Roles::with('permission')->get()->toArray();
-        return response()->json($prm);
+        // $roles = Roles::with('permission')->get()->toArray();
+        $roles = Roles::all();
+        // dd($roles);
+        return view('role.list', ['roles' => $roles])->with($msg);
+    }
+
+    function viewUserRole($id=null)
+    {  
+        $prm = Permissions::with('allPermissions')->whereNull('parent_menu_id')->get();
+        $passParam = ['permissions' => $prm];
+        if(!empty($id)) {
+            $userPerm = RolePermissionMapping::where('role_id', $id)->pluck('permission_id')->toArray();
+            $passParam = ['permissions' => $prm, 'role_id' => $id, 'userPer' => $userPerm];
+        }
+        return view('role.edit', $passParam);
+    }
+
+    function createOrUpdateRole(Request $request)
+    {
+        if(!$request->permission_id) {
+            return $this->getAllRoles(["class" => "danger", "msg" => "Permission required!!"]);
+        }
+        if($request->has('role_id')) {
+
+            $roleId = $request->role_id;
+            $permissionIdArray = $request->permission_id;
+            $old_permissions = json_decode($request->old_permissions, true);
+            $insertArray = array_diff($permissionIdArray,$old_permissions);
+            $deleteArray = array_diff($old_permissions, $permissionIdArray);
+            // dd($permissionIdArray,$old_permissions,$insertArray, $deleteArray);
+            \DB::beginTransaction();
+            try{
+                foreach ($insertArray as  $value) {
+                    $inputArray = [
+                        'role_id' => $roleId,
+                        'permission_id' => $value
+                    ];
+                    RolePermissionMapping::create($inputArray);
+                }
+                foreach ($deleteArray as $value) {
+                    $deleteArray = [
+                        'role_id' => $roleId,
+                        'permission_id' => $value
+                    ];
+                    RolePermissionMapping::where($deleteArray)->delete();
+                }
+                $msg = "Record Update Successfully!";
+                \DB::commit();
+            }catch(Exception $e){
+                \DB::rollBack();
+                throw new Exception($e->getMessage());
+            }        
+        }else {
+            $roleId = Roles::create(['name' => $request->role_name]);
+            $permissionIdArray = $request->permission_id;
+            \DB::beginTransaction();
+            try{
+                foreach ($permissionIdArray as $value) {
+                    $inputArray = [
+                        'role_id' => $roleId->id,
+                        'permission_id' => $value
+                    ];
+                    RolePermissionMapping::create($inputArray);
+                }
+                $msg = "Record Added Successfully!";
+                \DB::commit();
+            }catch(Exception $e){
+                \DB::rollBack();
+                throw new Exception($e->getMessage());
+            }        
+        }
+        return $this->getAllRoles(["class" => "success", "msg" => $msg]);
     }
 }
+    

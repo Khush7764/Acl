@@ -18,7 +18,7 @@ class Permissions extends Model
 
     public function allPermissions()
     {
-        return $this->hasMany(self::class, 'parent_menu_id')->with('userSidebar');
+        return $this->hasMany(self::class, 'parent_menu_id')->with('allPermissions');
     }
 
     public function userPermissions()
@@ -35,8 +35,16 @@ class Permissions extends Model
         }]);
     }
 
+    public function userSingular()
+    {
+        return $this->hasMany(self::class, 'parent_menu_id')->with(['userSingular' => function($q){
+            $q->whereIn('id', self::$id)->where('menu_type', 'singular');
+        }]);
+    }
+
     public static function setId(array $permissions)
     {
         self::$id = $permissions;
     }
+
 }

@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Services\ACLService;
+use Auth;
+use View;
 
 class EnsureRoles
 {
@@ -17,10 +19,15 @@ class EnsureRoles
      */
     public function handle(Request $request, Closure $next)
     {
-        $userid = $request->segment(2);
-        if (!(new ACLService())->checkUserPermissions($userid)) {
-            abort(401);
+        $requestUri = $request->getRequestUri();
+        $userid = Auth::user()->id;
+        if($requestUri != '/dashboard') {
+            if (!(new ACLService())->checkUserPermissions($userid, $requestUri)) {
+                abort(401);
+            }
         }
+        $userMenu = (new ACLService())->getUserMenu($userid);
+        View::share('sidebar', $userMenu);
         return $next($request);
     }
 }
